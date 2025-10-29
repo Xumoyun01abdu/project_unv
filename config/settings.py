@@ -27,10 +27,89 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Unfold
+
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
+
+UNFOLD = {
+    "SITE_TITLE": "Evara-shop",
+    "SITE_HEADER": "Evara shop",
+    "SITE_SUBHEADER": "evara_shop",
+    "SITE_DROPDOWN": [
+        {
+            "icon": "diamond",
+            "title": _("Evara shop"),
+            "link": "https://example.com",
+        },
+        # ...
+    ],
+    "SHOW_HISTORY": True, # show/hide "History" button, default: True
+    "SHOW_VIEW_ON_SITE": True, # show/hide "View on site" button, default: True
+    "SHOW_BACK_BUTTON": False, # show/hide "Back" button on changeform in header, default: False
+    "THEME": "dark",
+
+    "SIDEBAR": {
+        "show_search": False,  # Search in applications and models names
+        "command_search": False,  # Replace the sidebar search with the command search
+        "show_all_applications": False,  # Dropdown with all applications and models
+        "navigation": [
+            {
+                "title": _("Navigation"),
+                "separator": True,  # Top border
+                "collapsible": True,  # Collapsible group of links
+                "items": [
+                    # {
+                    #     "title": _("Dashboard"),
+                    #     "icon": "dashboard",  # Supported icon set: https://fonts.google.com/icons
+                    #     "link": reverse_lazy("admin:index"),
+                    #     "badge": "sample_app.badge_callback",
+                    #     "permission": lambda request: request.user.is_superuser,
+                    # },
+                     {
+                        "title": _("Students"),
+                        "icon": "people",
+                        "link": reverse_lazy("admin:app_student_changelist"),
+                    },
+                     {
+                        "title": _("Teachers"),
+                        "icon": "people",
+                        "link": reverse_lazy("admin:app_teacher_changelist"),
+                    },
+                     {
+                        "title": _("Courses"),
+                        "icon": "people",
+                        "link": reverse_lazy("admin:app_course_changelist"),
+                    },
+                    {
+                        "title": _("Users"),
+                        "icon": "people",
+                        "link": reverse_lazy("admin:auth_user_changelist"),
+                    },
+                   
+                ],
+            },
+        ],
+    },
+    }
+
+
+
+
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    "unfold", 
+    "unfold.contrib.filters",
+    "unfold.contrib.forms", 
+    "unfold.contrib.inlines",
+    "unfold.contrib.import_export",
+    "unfold.contrib.guardian", 
+    "unfold.contrib.simple_history",
+    "unfold.contrib.location_field", 
+    "unfold.contrib.constance", 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
